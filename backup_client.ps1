@@ -35,18 +35,25 @@ $adapter = Get-NetAdapter | Where-Object { $_.Status -eq "Up" } | Select-Object 
 if ($adapter) {
     Write-Host "Found active network adapter: $($adapter.Name)"
     
-    # --- THE FINAL FIX ---
-    # This logic now uses separate, direct commands to configure the network.
-    # This avoids the complex object type mismatch and is the most reliable method.
+    # THE NEW FIX: This logic uses 'Set-' cmdlets to modify the existing configuration.
+    # It avoids the '...already exists' error by not trying to create a new configuration.
     
-    # First, remove any old IP addresses to prevent conflicts.
-    Remove-NetIPAddress -InterfaceIndex $adapter.InterfaceIndex -AddressFamily IPv4 -Confirm:$false
+    # First, get the existing IP configuration object.
+    $ipconfig = Get-NetIPConfiguration -InterfaceIndex $adapter.InterfaceIndex | Where-Object { $_.IPv4Address } | Select-Object -First 1
     
-    # Second, create the new IP address and gateway.
-    New-NetIPAddress -InterfaceIndex $adapter.InterfaceIndex -IPAddress $ipAddress -PrefixLength 24 -DefaultGateway $gateway
-    
-    # Finally, set the DNS server.
-    Set-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -ServerAddresses $dnsServer
+    if ($ipconfig) {
+        Write-Host "Modifying existing IP configuration..."
+        # Use Set-NetIPAddress to change the IP and Gateway on the existing configuration
+        Set-NetIPAddress -InputObject $ipconfig -IPAddress $ipAddress -PrefixLength 24 -DefaultGateway $gateway
+        # Use Set-DnsClientServerAddress to set the DNS
+        Set-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -ServerAddresses $dnsServer
+    }
+    else {
+        # Fallback for a completely unconfigured adapter (unlikely in this case, but safe)
+        Write-Host "No existing IP configuration found. Creating a new one..."
+        New-NetIPAddress -InterfaceIndex $adapter.InterfaceIndex -IPAddress $ipAddress -PrefixLength 24 -DefaultGateway $gateway
+        Set-DnsClientServerAddress -InterfaceIndex $adapter.InterfaceIndex -ServerAddresses $dnsServer
+    }
     
     Write-Host "Static IP and DNS configured."
     Start-Sleep -Seconds 15 # Give network settings a moment to apply

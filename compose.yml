@@ -1,12 +1,13 @@
 services:
   windows_2025:
+    # image: my-server-unrestricted:latest
     image: dockurr/windows
     container_name: windows_2025
     privileged: true
     environment:
       VERSION: "2025"
-      DHCP: "Y" 
-      # IP: "192.168.10.20"
+      DHCP: "Y"
+      DEBUG: "Y"
     devices:
       - /dev/kvm
       - /dev/net/tun
@@ -23,16 +24,17 @@ services:
     stop_grace_period: 2m
     networks:
       ad_vlan:
-        ipv4_address: 192.168.10.201 # Fix AD(Server_2025) server IP for Docker network
+        ipv4_address: 192.168.10.201
 
   windows_11:
+    # image: my-client-unrestricted:latest
     image: dockurr/windows
     container_name: windows_11
     privileged: true
     environment:
       VERSION: "11"
       DHCP: "Y"
-      # IP: "192.168.10.21"
+      DEBUG: "Y"
     devices:
       - /dev/kvm
       - /dev/net/tun
@@ -45,13 +47,15 @@ services:
       - ./win11x64.iso:/boot.iso
       - ./windows_11_storage_task1:/storage
       - ./data_folder_win11:/data
+    restart: always
     stop_grace_period: 2m
     networks:
       ad_vlan:
-        ipv4_address: 192.168.10.202 # Fix Windows 11 IP for Docker network
+        ipv4_address: 192.168.10.202
     depends_on:
       - windows_2025
 
 networks:
   ad_vlan:
     external: true
+
