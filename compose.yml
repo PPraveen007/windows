@@ -19,7 +19,7 @@ services:
     volumes:
       - ./win2025-eval.iso:/boot.iso
       - ./windows_2025_storage_task1:/storage
-      - ./data_folder_2025_server:/data
+      - ./shared_win2025:/data
     restart: always
     stop_grace_period: 2m
     networks:
@@ -46,7 +46,7 @@ services:
     volumes:
       - ./win11x64.iso:/boot.iso
       - ./windows_11_storage_task1:/storage
-      - ./data_folder_win11:/data
+      - ./shared_win11:/data
     restart: always
     stop_grace_period: 2m
     networks:

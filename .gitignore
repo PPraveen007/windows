@@ -8,3 +8,8 @@ data_folder_win11/error.txt
 data_folder_2025_server/errors.txt
 windows_2025_storage_task1
 windows_11_storage_task1
+shared_win11/extratakeout.txt
+shared_win11/winlofbeat_updatedXML.txt
+shared_win2025/winlofbeat_updatedXML.txt
+shared_win11/sysmon-logs-json/Win11-%{\[agent]\[hostname]}.json-20251009.ndjson
+shared_win2025/sysmon-logs-json/Win_Server_2025-%{\[agent]\[hostname]}.json-20251009.ndjson
