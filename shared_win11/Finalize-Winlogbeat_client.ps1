@@ -19,7 +19,7 @@ Write-Host ""
 # --- Step 2: Configuration - VERIFY YOUR PATHS HERE ---
 $sysmonPath = "C:\Program Files\temp"
 $sysmonConfig = "sysmonconfig-export.xml"
-$winlogbeatPath = "C:\Program Files\winlogbeat-9.1.4-windows-x86_64"
+$winlogbeatPath = "C:\Program Files\winlogbeat-9.1.5-windows-x86_64"
 
 
 # --- Step 3: Install or Update Sysmon Configuration ---

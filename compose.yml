@@ -24,7 +24,7 @@ services:
     stop_grace_period: 2m
     networks:
       ad_vlan:
-        ipv4_address: 192.168.10.201
+        ipv4_address: ${AD_VLAN_IP}
 
   windows_11:
     # image: my-client-unrestricted:latest
@@ -51,7 +51,7 @@ services:
     stop_grace_period: 2m
     networks:
       ad_vlan:
-        ipv4_address: 192.168.10.202
+        ipv4_address: ${WS_VLAN_IP}
     depends_on:
       - windows_2025
 

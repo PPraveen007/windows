@@ -13,3 +13,10 @@ shared_win11/winlofbeat_updatedXML.txt
 shared_win2025/winlofbeat_updatedXML.txt
 shared_win11/sysmon-logs-json/Win11-%{\[agent]\[hostname]}.json-20251009.ndjson
 shared_win2025/sysmon-logs-json/Win_Server_2025-%{\[agent]\[hostname]}.json-20251009.ndjson
+shared_win2025/sysmon-logs-json/Win2025_server_LOGS.json-20251013.ndjson
+shared_win11/sysmon-logs-json/Win111213_LOGS.json-20251010.ndjson
+see.json
+.env
+shared_win11/takeout.txt
+shared_win11/sysmon-logs-json/Win11_LOGS.json-20251030.ndjson
+shared_win2025/sysmon-logs-json/Win2025_LOGS.json-20251030.ndjson

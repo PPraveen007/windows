@@ -31,3 +31,34 @@ sudo ip route add 192.168.10.200/29 dev adhost
 
 Now your Arch host (192.168.10.10) can reach the macvlan IPs through adhost (192.168.10.9).
 
+
+# Step 1 
+run this command before runing the preup.sh to give permission 
+
+chmod +x preup.sh
+192.168.10.1 ()
+
+255.255.255.0
+
+
+
+
+
+# For startup folder 
+
+Method 1: Using the Startup Folder
+This method runs the script when a user logs in.
+
+    Create a Shortcut: Create a shortcut to your PowerShell script.
+        -Right-click on your desktop or in a folder, select "New" > "Shortcut."
+        -In the "Type the location of the item" field, enter the following (replace C:\Path\To\YourScript.ps1 with the actual path to your script): 
+
+Code
+    -> powershell.exe -ExecutionPolicy Bypass -File "C:\Path\To\YourScript.ps1"
+
+    - Click "Next," give the shortcut a name (e.g., "MyStartupScript"), and click "Finish." 
+
+    Move the Shortcut to the Startup Folder:
+      - Open the Run dialog by pressing Win + R.
+      - Type shell:startup and press Enter. This will open the current user's Startup folder.
+      - Copy or move the shortcut you created in step 1 into this folder.
